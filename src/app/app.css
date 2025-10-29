@@ -1,0 +1,15 @@
+img {
+    margin : 20px 8px 10px 40px;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+footer {
+    background-color: rgb(11, 11, 104);
+    padding: 10px;
+    color: aliceblue;
+}

@@ -1,0 +1,62 @@
+:host.is-checked {
+  border: 3px solid goldenrod;
+  border-radius: 30px;
+}
+
+.listing {
+  position: relative;
+  background: var(--accent-color);
+  border-radius: 30px;
+  padding-bottom: 30px;
+}
+
+.listing-heading {
+  color: var(--primary-color);
+  font-size: large;
+  padding: 10px 20px 0 20px;
+}
+
+.listing-photo {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 30px 30px 0 0;
+}
+
+.listing-location {
+  padding: 0 0 5px 15px;
+}
+
+.listing-location::before {
+  content: url('../../../public/location-pin.svg');
+  position: relative;
+  top: 3px;
+}
+
+section.listing a {
+  padding-left: 20px;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+section.listing a::after {
+  content: '\203A';
+  margin-left: 5px;
+}
+
+.premium-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: rgb(243, 205, 107);
+  color: rgb(48, 44, 44);
+  font: small;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+label {
+  margin-left : 20px;
+}

@@ -1,0 +1,49 @@
+.details {
+  position: relative;        /* so buttons can be positioned inside */
+  margin: 55px auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Base button style */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;        /* makes it a circle */
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Position left/right */
+.prev {
+  left: -60px;               /* move slightly outside the content */
+}
+
+.next {
+  right: -60px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .prev {
+    left: 10px;
+  }
+  .next {
+    right: 10px;
+  }
+}

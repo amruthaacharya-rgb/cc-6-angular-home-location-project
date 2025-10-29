@@ -1,0 +1,32 @@
+<section class="header">
+  <form>
+    <input type="text" placeholder="Filter by city" />
+    <button class="primary" type="button">Search</button>
+    <button routerLink="add">+</button>
+  </form>
+</section>
+
+<section class="results">
+  @for(housingLocation of allHousingLocations(); track housingLocation.id) {
+  <app-card-wrapper>
+    <app-housing-location [locationInfo]="housingLocation"></app-housing-location>
+  </app-card-wrapper>
+  } @empty {
+  <p>Oops..! empty cart</p>
+  }
+</section>
+<div class="button-group">
+  <button
+    class="premium"
+    (click)="applyPremiumToggle()"
+    [disabled]="selectedLocations().length === 0"
+  >
+    Toggle Premium
+  </button>
+
+  <button class="shuffle" (click)="shuffleLocations()">Shuffle</button>
+
+  <button class="delete" (click)="deleteLocations()" [disabled]="selectedLocations().length === 0">
+    Delete
+  </button>
+</div>

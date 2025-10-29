@@ -1,0 +1,21 @@
+  <section class="listing"  (click)="goToDetails($event)">
+    <img
+      class="listing-photo"
+      [src]="locationInfo().photo"
+      alt="Exterior photo of {{ locationInfo().name }}"
+      crossorigin
+    />
+
+    @if (locationInfo().isPremium) {
+    <p class="premium-badge">💎 Premium</p>
+    }
+
+    <h2 class="listing-heading">{{ locationInfo().name }}</h2>
+    <p class="listing-location">{{ locationInfo().city }}, {{ locationInfo().state }}</p>
+    
+    <label (click)="$event.stopPropagation()">
+      <input type="checkbox" [checked]="isChecked" (change)="onToggleSelectionChange()" />
+      Select
+    </label>
+    <!-- <a [routerLink]="['/locations', getHousingLocation?.id]">Learn More</a> -->
+  </section>

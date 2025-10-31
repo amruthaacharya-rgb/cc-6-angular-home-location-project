@@ -1,13 +1,13 @@
 <section class="header">
   <form>
-    <input type="text" placeholder="Filter by city" />
-    <button class="primary" type="button">Search</button>
-    <button routerLink="add">+</button>
+    <input type="text" placeholder="Filter by city" (input)="searchText.set($any($event.target).value)" [value]="searchText()"/>
+    <button class="primary" type="button" (click)="performSearch()">Search</button>
   </form>
 </section>
+<button routerLink="add" class="add-btn">+</button>
 
 <section class="results">
-  @for(housingLocation of allHousingLocations(); track housingLocation.id) {
+  @for(housingLocation of filteredLocationList(); track housingLocation.id) {
   <app-card-wrapper>
     <app-housing-location [locationInfo]="housingLocation"></app-housing-location>
   </app-card-wrapper>
@@ -30,3 +30,5 @@
     Delete
   </button>
 </div>
+
+<router-outlet />

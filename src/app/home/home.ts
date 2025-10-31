@@ -3,12 +3,12 @@ import { HousingLocation } from '../housing-location/housing-location';
 import { HousingLocationInfo } from '../types/housing-location-interface';
 import { HousingService } from '../Services/housing-service';
 import { CardWrapper } from '../card-wrapper/card-wrapper';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-home',
-  imports: [HousingLocation, CardWrapper, RouterLink],
+  imports: [HousingLocation, CardWrapper, RouterLink, RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -16,19 +16,30 @@ export class Home {
 
   private housingService: HousingService = inject(HousingService);
   router = inject(Router);
-  
+
   allHousingLocations = this.housingService.housingLocations;
   selectedLocations = this.housingService.selectedLocations;
+
+  searchText = signal('');
+
+  filteredLocationList = computed(() =>
+    this.allHousingLocations().filter(housingLocation =>
+      housingLocation.city.toLowerCase().includes(this.searchText().toLowerCase())
+    )
+  );
 
   constructor() { }
 
   isSelected = (loc: HousingLocationInfo) => this.housingService.isSelected(loc.id);
 
-  
+  performSearch() {
+    this.searchText.set(this.searchText());
+  }
+
   shuffleLocations() {
     this.housingService.shuffleLocations();
   }
-  
+
   applyPremiumToggle() {
     this.housingService.applyPremiumToggle();
   }

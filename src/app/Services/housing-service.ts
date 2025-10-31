@@ -127,10 +127,6 @@ export class HousingService {
     return this._housingLocations();
   }
 
-  // getHousingLocationById(id: number | null): HousingLocationInfo | undefined {
-  //   return this._housingLocations().find((loc) => loc.id === id);
-  // }
-
   getHousingLocationById(id: number | null): HousingLocationInfo | null {
     if (id === null || isNaN(Number(id))) return null;
     return this._housingLocations().find(loc => loc.id === Number(id)) || null;
@@ -197,4 +193,8 @@ export class HousingService {
     return null;
   }
 
+  addHousingLocation(newLocation: HousingLocationInfo){
+    const updated = [...this._housingLocations(), newLocation]
+    this._housingLocations.set(updated);
+  }
 }

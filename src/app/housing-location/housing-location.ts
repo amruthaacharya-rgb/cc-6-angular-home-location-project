@@ -1,6 +1,6 @@
 import { Component, HostBinding, inject, Input, input, output } from '@angular/core';
 import { HousingLocationInfo } from '../types/housing-location-interface';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { HousingService } from '../Services/housing-service';
 
 @Component({
@@ -13,7 +13,7 @@ export class HousingLocation {
 
   private housingService = inject(HousingService);
   private router = inject(Router);
-  
+
   locationInfo = input.required<HousingLocationInfo>();
 
   @Input()

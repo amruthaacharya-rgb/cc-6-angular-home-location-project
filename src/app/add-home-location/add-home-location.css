@@ -1,0 +1,137 @@
+/* === Sidebar Panel === */
+.sidebar-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.35s ease-in-out;
+  z-index: 1100;
+  padding: 30px 25px;
+  overflow-y: auto;
+  border-left: 3px solid var(--primary-color, #007bff);
+}
+.sidebar-panel.is-open {
+  transform: translateX(0);
+}
+
+/* === Close Button === */
+.close-btn {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #444;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.close-btn:hover {
+  color: var(--primary-color, #007bff);
+  transform: scale(1.1);
+}
+
+/* === Header === */
+.sidebar-panel h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* === Form === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: var(--primary-color, #007bff);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* === Checkbox === */
+.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #444;
+}
+.checkbox input {
+  margin-right: 8px;
+  accent-color: var(--primary-color, #007bff);
+}
+
+/* === Error Message === */
+.error {
+  color: #d93025;
+  font-size: 13px;
+  margin-top: -8px;
+  margin-bottom: 5px;
+  animation: fadeIn 0.2s ease;
+}
+
+/* === Submit Button === */
+button[type='submit'] {
+  margin-top: 10px;
+  background-color: var(--primary-color, #007bff);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+button[type='submit']:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+button[type='submit']:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+@media (max-width: 600px) {
+  .sidebar-panel {
+    width: 90vw;
+    padding: 20px;
+  }
+  .sidebar-panel h3 {
+    font-size: 18px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,4 +1,3 @@
-/* === Sidebar Panel === */
 .sidebar-panel {
   position: fixed;
   top: 0;
@@ -18,11 +17,21 @@
   transform: translateX(0);
 }
 
-/* === Close Button === */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.sidebar-header h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
 .close-btn {
-  position: absolute;
-  top: 18px;
-  left: 18px;
   background: transparent;
   border: none;
   font-size: 22px;
@@ -31,21 +40,18 @@
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .close-btn:hover {
-  color: var(--primary-color, #007bff);
+  color: rgb(223, 25, 25);
   transform: scale(1.1);
 }
 
-/* === Header === */
+
 .sidebar-panel h3 {
-  margin-top: 20px;
-  margin-bottom: 20px;
   font-size: 22px;
   font-weight: 600;
   color: #222;
   text-align: center;
 }
 
-/* === Form === */
 form {
   display: flex;
   flex-direction: column;
@@ -72,17 +78,26 @@ input[type="number"]:focus {
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
-/* === Checkbox === */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 15px; 
+  align-items: center;
+  margin-top: 10px;
+}
+
 .checkbox {
   display: flex;
   align-items: center;
   font-size: 14px;
   color: #444;
 }
+
 .checkbox input {
-  margin-right: 8px;
+  margin-right: 6px;
   accent-color: var(--primary-color, #007bff);
 }
+
 
 /* === Error Message === */
 .error {

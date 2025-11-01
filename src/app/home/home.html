@@ -1,34 +1,26 @@
-<section class="header">
+<section class="filter-bar">
   <form>
-    <input type="text" placeholder="Filter by city" (input)="searchText.set($any($event.target).value)" [value]="searchText()"/>
+    <div class="search-box">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        placeholder="Search city..."
+        (input)="searchText.set($any($event.target).value)"
+        [value]="searchText()"
+      />
+    </div>
     <button class="primary" type="button" (click)="performSearch()">Search</button>
   </form>
 </section>
-<button routerLink="add" class="add-btn">+</button>
 
 <section class="results">
-  @for(housingLocation of filteredLocationList(); track housingLocation.id) {
-  <app-card-wrapper>
-    <app-housing-location [locationInfo]="housingLocation"></app-housing-location>
-  </app-card-wrapper>
+  @for (housingLocation of filteredLocationList(); track housingLocation.id) {
+    <app-card-wrapper>
+      <app-housing-location [locationInfo]="housingLocation"></app-housing-location>
+    </app-card-wrapper>
   } @empty {
-  <p>Oops..! empty cart</p>
+    <p class="empty-message">Oops..! empty cart</p>
   }
 </section>
-<div class="button-group">
-  <button
-    class="premium"
-    (click)="applyPremiumToggle()"
-    [disabled]="selectedLocations().length === 0"
-  >
-    Toggle Premium
-  </button>
 
-  <button class="shuffle" (click)="shuffleLocations()">Shuffle</button>
-
-  <button class="delete" (click)="deleteLocations()" [disabled]="selectedLocations().length === 0">
-    Delete
-  </button>
-</div>
-
-<router-outlet />
+<router-outlet></router-outlet>

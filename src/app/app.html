@@ -1,13 +1,43 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <a [routerLink]="['/']" class="brand">
+      <img src="logo.svg" alt="Logo" class="brand-logo" />
+    </a>
+  </div>
+
+  <div class="navbar-center">
+    <a routerLink="home" routerLinkActive="active">Home</a>
+    <a routerLink="about" routerLinkActive="active">About</a>
+  </div>
+
+  <div class="navbar-right">
+    <button
+      class="premium"
+      (click)="applyPremiumToggle()"
+      [disabled]="selectedLocations().length === 0"
+    >
+      <i class="fa fa-star"></i> Toggle
+    </button>
+
+    <button class="shuffle" (click)="shuffleLocations()">
+      <i class="fa fa-random"></i> Shuffle
+    </button>
+
+    <button
+      class="delete"
+      (click)="deleteLocations()"
+      [disabled]="selectedLocations().length === 0"
+    >
+      <i class="fa fa-trash"></i> Delete
+    </button>
+
+    <button routerLink="/home/add" class="add-btn">
+      <i class="fa fa-plus"></i> Add
+    </button>
+  </div>
+</nav>
+
 <main>
-  <a [routerLink]="['/']">
-    <header class="brand-name">
-      <img class="brand-logo" src="logo.svg" alt="logo" aria-hidden="true" />
-    </header>
-  </a>
-  <nav>
-    <a routerLink="home">Home</a>
-    <a routerLink="about">About</a>
-  </nav>
   <section class="content">
     <router-outlet></router-outlet>
   </section>

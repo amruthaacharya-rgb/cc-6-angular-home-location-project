@@ -7,8 +7,8 @@ import { AddHomeLocation } from './add-home-location/add-home-location';
 export const routes: Routes = [
     {
         path: '',
-        component: Home,
-        title: 'App Page'
+        redirectTo: 'home',
+        pathMatch: 'full',
     },
     {
         path: 'home',
@@ -18,7 +18,8 @@ export const routes: Routes = [
             path: 'add',
             component: AddHomeLocation,
             title: 'Add Component'
-        }]
+        },
+    ]
     },
     {
         path: 'home/:id',

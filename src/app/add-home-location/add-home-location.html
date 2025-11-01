@@ -1,34 +1,49 @@
-<section class="sidebar-panel" [class.is-open]="isOpen()">
-  <button class="close-btn" (click)="toggleSidebar()">✖</button>
-  <h3>Add New Location</h3>
-
+<section
+  class="sidebar-panel"
+  [class.is-open]="isOpen()"
+  role="form"
+  aria-labelledby="add-location-title"
+>
+  <div class="sidebar-header">
+    <h3>Add New Location</h3>
+    <button
+      class="close-btn"
+      (click)="closeSidebar()"
+      aria-label="Close Add Location Form"
+      title="Close"
+    >
+      ✖
+    </button>
+  </div>
   <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" novalidate>
-    <!-- Name -->
     <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name" placeholder="Enter property name" />
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      placeholder="Enter property name"
+      appHighlight="lightblue"
+    />
     @if (locationForm.get('name')?.touched && locationForm.get('name')?.hasError('required')) {
-      <p class="error">Name is required.</p>
+    <p class="error">Name is required.</p>
     } @if (locationForm.get('name')?.touched && locationForm.get('name')?.hasError('minlength')) {
-      <p class="error">Name must be at least 6 characters.</p>
+    <p class="error">Name must be at least 6 characters.</p>
     } @if (locationForm.get('name')?.touched && locationForm.get('name')?.hasError('nameExists')) {
-      <p class="error">A location with this name already exists.</p>
+    <p class="error">A location with this name already exists.</p>
     }
 
-    <!-- City -->
     <label for="city">City</label>
     <input id="city" type="text" formControlName="city" placeholder="Enter city name" />
     @if (locationForm.get('city')?.touched && locationForm.get('city')?.hasError('required')) {
-      <p class="error">City is required.</p>
+    <p class="error">City is required.</p>
     }
 
-    <!-- State -->
     <label for="state">State</label>
     <input id="state" type="text" formControlName="state" placeholder="Enter state name" />
     @if (locationForm.get('state')?.touched && locationForm.get('state')?.hasError('required')) {
-      <p class="error">State is required.</p>
+    <p class="error">State is required.</p>
     }
 
-    <!-- Units -->
     <label for="availableUnits">Available Units</label>
     <input
       id="availableUnits"
@@ -36,27 +51,26 @@
       formControlName="availableUnits"
       placeholder="Enter number of units"
     />
-    @if (locationForm.get('availableUnits')?.touched && locationForm.get('availableUnits')?.hasError('required')) {
-      <p class="error">Available units are required.</p>
-    }
-    @if (locationForm.get('availableUnits')?.touched && locationForm.get('availableUnits')?.hasError('min')) {
-      <p class="error">Available units must be at least 1.</p>
+    @if (locationForm.get('availableUnits')?.touched &&
+    locationForm.get('availableUnits')?.hasError('required')) {
+    <p class="error">Available units are required.</p>
+    } @if (locationForm.get('availableUnits')?.touched &&
+    locationForm.get('availableUnits')?.hasError('min')) {
+    <p class="error">Available units must be at least 1.</p>
     }
 
-    <!-- Checkboxes -->
-    <label class="checkbox">
-      <input type="checkbox" formControlName="wifi" /> WiFi Available
-    </label>
-    <label class="checkbox">
-      <input type="checkbox" formControlName="laundry" /> Laundry Available
-    </label>
-    <label class="checkbox">
-      <input type="checkbox" formControlName="isPremium" /> Premium Listing
-    </label>
+    <div class="checkbox-group">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="wifi" /> WiFi Available
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" formControlName="laundry" /> Laundry Available
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" formControlName="isPremium" /> Premium Listing
+      </label>
+    </div>
 
-    <!-- Submit -->
-    <button type="submit" >
-      Submit
-    </button>
+    <button type="submit">Submit</button>
   </form>
 </section>

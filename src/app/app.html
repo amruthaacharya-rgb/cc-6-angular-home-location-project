@@ -12,6 +12,26 @@
 
   <div class="navbar-right">
     <button
+      class="selectAll"
+      (click)="toggleSelectAll()"
+      [disabled]="!housingService.housingLocations().length"
+    >
+      <i
+        class="fa"
+        [ngClass]="
+          selectedLocations().length === housingService.housingLocations().length
+            ? 'fa-square'
+            : 'fa-check-square'
+        "
+      ></i>
+      {{
+        selectedLocations().length === housingService.housingLocations().length
+          ? 'Deselect All'
+          : 'Select All'
+      }}
+    </button>
+
+    <button
       class="premium"
       (click)="applyPremiumToggle()"
       [disabled]="selectedLocations().length === 0"
@@ -31,15 +51,13 @@
       <i class="fa fa-trash"></i> Delete
     </button>
 
-    <button routerLink="/home/add" class="add-btn">
-      <i class="fa fa-plus"></i> Add
-    </button>
+    <button routerLink="/home/add" class="add-btn"><i class="fa fa-plus"></i> Add</button>
   </div>
 </nav>
 
 <main>
   <section class="content">
-    <router-outlet></router-outlet>
+    <router-outlet />
   </section>
 
   <footer>@2025</footer>

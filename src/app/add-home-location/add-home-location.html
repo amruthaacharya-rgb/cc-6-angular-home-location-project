@@ -1,11 +1,11 @@
 <section
-  class="sidebar-panel"
+  class="sidebar-panel hide-scrollbar"
   [class.is-open]="isOpen()"
   role="form"
   aria-labelledby="add-location-title"
 >
   <div class="sidebar-header">
-    <h3>Add New Location</h3>
+    <h3>{{ isEditMode() ? 'Edit Location' : 'Add New Location' }}</h3>
     <button
       class="close-btn"
       (click)="closeSidebar()"
@@ -44,6 +44,51 @@
     <p class="error">State is required.</p>
     }
 
+    <label for="photo">Photo</label>
+
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" [checked]="useUploadMode()" (change)="toggleUploadMode()" />
+        <span class="slider round"></span>
+      </label>
+      <span>{{ useUploadMode() ? 'Upload / Drag & Drop' : 'Image URL' }}</span>
+    </div>
+
+    <!-- URL Input -->
+    @if (!useUploadMode()) {
+    <input
+      id="photo"
+      type="url"
+      formControlName="photo"
+      placeholder="Enter image URL"
+      (input)="updateUrlPreview()"
+    />
+    }
+
+    <!-- Upload / Drag & Drop -->
+    @if (useUploadMode()) {
+    <div
+      class="drop-zone"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onFileDrop($event)"
+      (click)="fileInput.click()"
+      [class.drag-over]="isDragOver()"
+    >
+      <p>📂 Drag & drop an image here</p>
+      <p>or <strong>click to upload</strong></p>
+      <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelect($event)" />
+    </div>
+    }
+
+    <!-- Preview -->
+    @if (photoPreview()) {
+    <div class="photo-preview-container">
+      <img [src]="photoPreview()" alt="Preview" class="photo-preview" />
+      <button type="button" class="remove-photo-btn" (click)="clearPhoto()">✖</button>
+    </div>
+    }
+
     <label for="availableUnits">Available Units</label>
     <input
       id="availableUnits"
@@ -71,6 +116,9 @@
       </label>
     </div>
 
-    <button type="submit">Submit</button>
+    <!-- <button type="submit">{{ isEditMode() ? 'Update' : 'Submit' }}</button> -->
+    <button type="submit" class="submit-btn" [disabled]="locationForm.invalid">
+      {{ isEditMode() ? 'Update Location' : 'Add Location' }}
+    </button>
   </form>
 </section>

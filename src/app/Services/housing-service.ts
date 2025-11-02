@@ -139,6 +139,21 @@ export class HousingService {
     return this.selectedLocations().includes(id);
   }
 
+  selectAll() {
+    const allIds = this._housingLocations().map(loc => loc.id);
+    this._selectedLocations.set(allIds);
+  }
+
+  deselectAll() {
+    this._selectedLocations.set([]);
+  }
+
+  toggleSelectAll() {
+    const allIds = this._housingLocations().map(loc => loc.id);
+    const isAllSelected = allIds.every(id => this._selectedLocations().includes(id));
+    this._selectedLocations.set(isAllSelected ? [] : allIds);
+  }
+
   toggleSelection(id: number) {
     if (this.isSelected(id)) {
       this._selectedLocations.update(list => list.filter(x => x !== id));
@@ -193,8 +208,18 @@ export class HousingService {
     return null;
   }
 
-  addHousingLocation(newLocation: HousingLocationInfo){
+  addHousingLocation(newLocation: HousingLocationInfo) {
     const updated = [...this._housingLocations(), newLocation]
     this._housingLocations.set(updated);
+  }
+
+  updateHousingLocation(updatedLocation: HousingLocationInfo) {
+    const allLocations = this._housingLocations();
+    const index = allLocations.findIndex((loc) => loc.id === updatedLocation.id);
+    if (index !== -1) {
+      allLocations[index] = updatedLocation;
+      this._housingLocations.set([...allLocations]);
+    }
+
   }
 }

@@ -1,11 +1,11 @@
-import { Component, HostBinding, inject, Input, input, output } from '@angular/core';
+import { Component, HostBinding, inject, Input, input } from '@angular/core';
 import { HousingLocationInfo } from '../types/housing-location-interface';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HousingService } from '../Services/housing-service';
 
 @Component({
   selector: 'app-housing-location',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './housing-location.html',
   styleUrl: './housing-location.css',
 })
@@ -36,5 +36,4 @@ export class HousingLocation {
     const id = this.locationInfo().id;
     this.router.navigate(['/home', id]);
   }
-
 }

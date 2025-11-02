@@ -1,30 +1,47 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { HousingService } from './Services/housing-service';
-import { HousingLocationInfo } from './types/housing-location-interface';
+import { ConfirmDialog } from './shared/confirm-dialog/confirm-dialog';
+import { Dialog } from '@angular/cdk/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 })
-export class App {
-  title = 'HOME';
+export class App implements OnInit, OnDestroy {
 
-  private housingService: HousingService = inject(HousingService);
-  router = inject(Router);
+  private dialog = inject(Dialog);
+  private toaster = inject(ToastrService)
+  private _housingService = inject(HousingService);
 
-  allHousingLocations = this.housingService.housingLocations;
   selectedLocations = this.housingService.selectedLocations;
-
   searchText = signal('');
+  
+  get housingService() {
+    return this._housingService;
+  }
 
-  constructor(){}
-  
-  isSelected = (loc: HousingLocationInfo) => this.housingService.isSelected(loc.id);
-  
+  constructor() {
+    console.log('%capp constructor()', 'color: gray');
+  }
+
+  ngOnInit() {
+    console.log('%capp ngOnInit()', 'color: green');
+  }
+
+  ngOnDestroy() {
+    console.log('%capp ngOnDestroy()', 'color: red');
+  }
+
+  toggleSelectAll() {
+    this.housingService.toggleSelectAll();
+  }
+
   performSearch() {
     this.searchText.set(this.searchText());
   }
@@ -37,13 +54,22 @@ export class App {
     this.housingService.applyPremiumToggle();
   }
 
-  deleteLocations() {
-    const confirmed = window.confirm('Are you sure you want to delete the selected houses?');
-    if (confirmed) {
-      this.housingService.deleteLocations();
-    }
+  deleteLocations(): void {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: {
+        title: 'Delete Confirmation',
+        message: 'Are you sure you want to delete the selected houses? This action cannot be undone.',
+      },
+    });
+
+    dialogRef.closed.subscribe((result) => {
+      if (result) {
+        this.housingService.deleteLocations();
+        this.toaster.success('Selected houses deleted successfully!', 'Deleted');
+      } else {
+        this.toaster.info('Deletion cancelled.', 'Cancelled');
+      }
+    });
   }
 
-  
-    
 }

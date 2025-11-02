@@ -58,6 +58,7 @@ button {
   cursor: pointer;
   border: none;
   transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.50);
 }
 
 button:hover {

@@ -1,0 +1,11 @@
+.card-wrapper {
+  border-radius: 30px;
+  background: #ffffff; 
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card-wrapper:hover {
+  box-shadow: 0 10px 25px rgba(4, 37, 90, 0.5); 
+  transform: translateY(-3px);
+}

@@ -1,0 +1,93 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left img {
+  height: 45px;
+  cursor: pointer;
+}
+
+.navbar-center a {
+  text-decoration: none;
+  margin: 0 10px;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-center a:hover,
+.navbar-center a.active {
+  color: var(--primary-color);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-right button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  /* box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15); */
+}
+
+.navbar-right button i {
+  font-size: 14px;
+}
+
+.navbar-right button:hover {
+  transform: translateY(-2px);
+}
+
+.navbar-right button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navbar-right .selectAll:hover {
+  background-color:darkblue;
+}
+
+.navbar-right .premium:hover {
+  background-color: darkgoldenrod;
+}
+
+.navbar-right .shuffle:hover {
+  background-color: #31b0d5;
+}
+
+.navbar-right .delete:hover {
+  background-color: firebrick;
+}
+
+.navbar-right .add-btn:hover {
+  background-color: #449d44;
+} 
+
+footer {
+  background-color: rgb(11, 11, 104);
+  padding: 10px;
+  color: aliceblue;
+  text-align: center;
+  margin-top: auto;
+}
+

@@ -1,0 +1,124 @@
+<section
+  class="sidebar-panel hide-scrollbar"
+  [class.is-open]="isOpen()"
+  role="form"
+  aria-labelledby="add-location-title"
+>
+  <div class="sidebar-header">
+    <h3>{{ isEditMode() ? 'Edit Location' : 'Add New Location' }}</h3>
+    <button
+      class="close-btn"
+      (click)="closeSidebar()"
+      aria-label="Close Add Location Form"
+      title="Close"
+    >
+      ✖
+    </button>
+  </div>
+  <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" novalidate>
+    <label for="name">Name</label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      placeholder="Enter property name"
+      appHighlight="lightblue"
+    />
+    @if (locationForm.get('name')?.touched && locationForm.get('name')?.hasError('required')) {
+    <p class="error">Name is required.</p>
+    } @if (locationForm.get('name')?.touched && locationForm.get('name')?.hasError('minlength')) {
+    <p class="error">Name must be at least 6 characters.</p>
+    } @if (locationForm.get('name')?.touched && locationForm.get('name')?.hasError('nameExists')) {
+    <p class="error">A location with this name already exists.</p>
+    }
+
+    <label for="city">City</label>
+    <input id="city" type="text" formControlName="city" placeholder="Enter city name" />
+    @if (locationForm.get('city')?.touched && locationForm.get('city')?.hasError('required')) {
+    <p class="error">City is required.</p>
+    }
+
+    <label for="state">State</label>
+    <input id="state" type="text" formControlName="state" placeholder="Enter state name" />
+    @if (locationForm.get('state')?.touched && locationForm.get('state')?.hasError('required')) {
+    <p class="error">State is required.</p>
+    }
+
+    <label for="photo">Photo</label>
+
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" [checked]="useUploadMode()" (change)="toggleUploadMode()" />
+        <span class="slider round"></span>
+      </label>
+      <span>{{ useUploadMode() ? 'Upload / Drag & Drop' : 'Image URL' }}</span>
+    </div>
+
+    <!-- URL Input -->
+    @if (!useUploadMode()) {
+    <input
+      id="photo"
+      type="url"
+      formControlName="photo"
+      placeholder="Enter image URL"
+      (input)="updateUrlPreview()"
+    />
+    }
+
+    <!-- Upload / Drag & Drop -->
+    @if (useUploadMode()) {
+    <div
+      class="drop-zone"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onFileDrop($event)"
+      (click)="fileInput.click()"
+      [class.drag-over]="isDragOver()"
+    >
+      <p>📂 Drag & drop an image here</p>
+      <p>or <strong>click to upload</strong></p>
+      <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelect($event)" />
+    </div>
+    }
+
+    <!-- Preview -->
+    @if (photoPreview()) {
+    <div class="photo-preview-container">
+      <img [src]="photoPreview()" alt="Preview" class="photo-preview" />
+      <button type="button" class="remove-photo-btn" (click)="clearPhoto()">✖</button>
+    </div>
+    }
+
+    <label for="availableUnits">Available Units</label>
+    <input
+      id="availableUnits"
+      type="number"
+      formControlName="availableUnits"
+      placeholder="Enter number of units"
+    />
+    @if (locationForm.get('availableUnits')?.touched &&
+    locationForm.get('availableUnits')?.hasError('required')) {
+    <p class="error">Available units are required.</p>
+    } @if (locationForm.get('availableUnits')?.touched &&
+    locationForm.get('availableUnits')?.hasError('min')) {
+    <p class="error">Available units must be at least 1.</p>
+    }
+
+    <div class="checkbox-group">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="wifi" /> WiFi Available
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" formControlName="laundry" /> Laundry Available
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" formControlName="isPremium" /> Premium Listing
+      </label>
+    </div>
+
+    <!-- <button type="submit">{{ isEditMode() ? 'Update' : 'Submit' }}</button> -->
+    <button type="submit" class="submit-btn" [disabled]="locationForm.invalid">
+      {{ isEditMode() ? 'Update Location' : 'Add Location' }}
+    </button>
+  </form>
+</section>

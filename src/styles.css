@@ -1,1 +1,206 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+
+/* === GLOBAL RESETS === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* === GLOBAL COLORS === */
+:root {
+  --primary-color: #605dc8;
+  --secondary-color: #8b89e6;
+  --accent-color: #e8e7fa;
+  --shadow-color: #e8e8e8;
+}
+
+/* === BUTTON STYLES === */
+button {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.50);
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.03);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+/* === GLOBAL TOAST STYLES === */
+
+/* Position top center */
+.toast-top-center {
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.toast-container .ngx-toastr {
+  display: grid;
+  grid-template-columns: 60px 1fr; /* left: emoji | right: text */
+  align-items: center;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  min-width: 420px;
+  border: 2px solid transparent;
+  color: #1a1a1a;
+  column-gap: 1rem;
+  position: relative;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.toast-container .ngx-toastr:hover {
+  transform: translateY(-2px);
+}
+
+.toast-container .ngx-toastr.toast-success:hover {
+  box-shadow: 0 6px 18px rgba(40, 167, 69, 0.3) !important;
+}
+.toast-container .ngx-toastr.toast-error:hover {
+  box-shadow: 0 6px 18px rgba(220, 53, 69, 0.3) !important;
+}
+.toast-container .ngx-toastr.toast-warning:hover {
+  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.3) !important;
+}
+.toast-container .ngx-toastr.toast-info:hover {
+  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.3) !important;
+}
+
+/* === LEFT EMOJI CELL === */
+.toast-container .ngx-toastr::before {
+  content: '';
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  font-weight: bold;
+  width: 45px; /* fixed width  */
+  height: 45px; /* fixed height */
+  border: 2px solid currentColor; /* colored border */
+  flex-shrink: 0; /* don’t resize */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle lift */
+}
+
+/* === TEXT CONTENT (TITLE + MESSAGE) === */
+.toast-container .ngx-toastr > div {
+  grid-column: 2; /* force right side */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.3;
+}
+
+/* === TITLE === */
+.toast-title {
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+  padding: 0;
+}
+
+/* === MESSAGE === */
+.toast-message {
+  font-weight: 400;
+  color: #4a4a4a;
+  margin-top: 2px;
+  padding: 0;
+}
+
+/* === SUCCESS === */
+.toast-container .ngx-toastr.toast-success {
+  background: linear-gradient(to right, #a6f4c1, #c2f8d3);
+  border-color: #28a745;
+}
+.toast-container .ngx-toastr.toast-success::before {
+  content: '✔';
+  color: #28a745;
+}
+
+/* === ERROR === */
+.toast-container .ngx-toastr.toast-error {
+  background: linear-gradient(to right, #fddede, #f8cccc);
+  border-color: #dc3545;
+}
+.toast-container .ngx-toastr.toast-error::before {
+  content: '✖';
+  color: #dc3545;
+}
+
+/* === WARNING === */
+.toast-container .ngx-toastr.toast-warning {
+  background: linear-gradient(to right, #fff6d1, #fff8e5);
+  border-color: #ffc107;
+}
+.toast-container .ngx-toastr.toast-warning::before {
+  content: '⚠';
+  color: #ffc107;
+}
+
+/* === INFO === */
+.toast-container .ngx-toastr.toast-info {
+  background: linear-gradient(to right, #d8ecff, #e9f4ff);
+  border-color: #0d6efd;
+}
+.toast-container .ngx-toastr.toast-info::before {
+  content: 'ℹ';
+  color: #0d6efd;
+}
+

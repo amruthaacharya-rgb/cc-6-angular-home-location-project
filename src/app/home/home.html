@@ -1,0 +1,25 @@
+<section class="filter-bar">
+  <form>
+    <div class="search-box">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        placeholder="Search city..."
+        (input)="searchText.set($any($event.target).value)"
+        [value]="searchText()"
+      />
+    </div>
+    <button class="primary" type="button" (click)="performSearch()">Search</button>
+  </form>
+</section>
+
+<section class="results">
+  @for (housingLocation of filteredLocationList(); track housingLocation.id) {
+    <app-card-wrapper>
+      <app-housing-location [locationInfo]="housingLocation"></app-housing-location>
+    </app-card-wrapper>
+  } @empty {
+    <p class="empty-message">Oops..! empty cart</p>
+  }
+</section>
+<router-outlet></router-outlet>

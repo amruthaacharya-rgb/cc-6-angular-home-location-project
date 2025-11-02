@@ -1,0 +1,10 @@
+<section class="details">
+  @if (housingLocation()) {
+    <app-housing-location [locationInfo]="housingLocation()!"></app-housing-location>
+  } @else {
+    <p>Housing location not found.</p>
+  }
+
+  <button class="nav-btn prev" (click)="goToPrevious()">&#8249;</button>
+  <button class="nav-btn next" (click)="goToNext()">&#8250;</button>
+</section>

@@ -2,10 +2,11 @@ import { Component, HostBinding, inject, Input, input } from '@angular/core';
 import { HousingLocationInfo } from '../types/housing-location-interface';
 import { Router, RouterModule } from '@angular/router';
 import { HousingService } from '../Services/housing-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-housing-location',
-  imports: [RouterModule],
+  imports: [RouterModule, DatePipe],
   templateUrl: './housing-location.html',
   styleUrl: './housing-location.css',
 })

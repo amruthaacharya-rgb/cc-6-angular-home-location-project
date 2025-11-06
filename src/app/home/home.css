@@ -74,10 +74,9 @@ button.primary:hover {
 /* === RESULTS GRID === */
 .results {
   display: grid;
-  column-gap: 10px;
-  row-gap: 10px;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 30px 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px; /* unified spacing */
+  margin: 40px;
 }
 
 .empty-message {
@@ -88,24 +87,57 @@ button.primary:hover {
 }
 
 /* === RESPONSIVE === */
-@media (min-width: 500px) and (max-width: 768px) {
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
   .results {
     grid-template-columns: repeat(2, 1fr);
+    margin: 30px;
+    gap: 30px;
   }
 }
 
-@media (max-width: 499px) {
+/* Small screens (phones) */
+@media (max-width: 600px) {
   .results {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* ✅ One div per row */
+    margin: 20px;
+    gap: 20px;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  form {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    gap: 10px;
   }
 
   .search-box {
+    width: 100%;
     padding: 8px 12px;
   }
 
   button.primary {
-    padding: 8px 15px;
+    width: 100%;
+    padding: 10px;
   }
 }
 
 
+
+.loading {
+  color: #0078ff;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.error {
+  color: #d93025;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}

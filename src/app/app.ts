@@ -1,5 +1,5 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { HousingService } from './Services/housing-service';
 import { ConfirmDialog } from './shared/confirm-dialog/confirm-dialog';
 import { Dialog } from '@angular/cdk/dialog';
@@ -18,9 +18,9 @@ export class App implements OnInit, OnDestroy {
   private dialog = inject(Dialog);
   private toaster = inject(ToastrService)
   private _housingService = inject(HousingService);
+  router = inject(Router);
 
   selectedLocations = this.housingService.selectedLocations;
-  searchText = signal('');
   
   get housingService() {
     return this._housingService;
@@ -40,10 +40,6 @@ export class App implements OnInit, OnDestroy {
 
   toggleSelectAll() {
     this.housingService.toggleSelectAll();
-  }
-
-  performSearch() {
-    this.searchText.set(this.searchText());
   }
 
   shuffleLocations() {

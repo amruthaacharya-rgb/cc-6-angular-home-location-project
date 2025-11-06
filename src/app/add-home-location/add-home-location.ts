@@ -19,21 +19,19 @@ import { ConfirmDialog } from '../shared/confirm-dialog/confirm-dialog';
   },
 })
 export class AddHomeLocation {
-  // 🔹 Signals
+
   isOpen = signal(true);
   id = input<string | null>(null);
   useUploadMode = signal(false);
   isDragOver = signal(false);
   photoPreview = signal<string | null>(null);
 
-  // 🔹 Dependencies
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private housingService = inject(HousingService);
   private toaster = inject(ToastrService);
   private dialog = inject(Dialog);
 
-  // 🔹 Derived signals
   numericId = computed(() => (this.id() ? Number(this.id()) : null));
   isEditMode = computed(() => this.numericId() !== null);
   housingLocationComputed = computed(() =>
@@ -168,8 +166,8 @@ export class AddHomeLocation {
           wifi: formValue.wifi ?? false,
           laundry: formValue.laundry ?? false,
           isPremium: formValue.isPremium ?? false,
+          dateAdded: new Date().toLocaleDateString('en-GB'),
         };
-
         this.housingService.updateHousingLocation(updatedLocation);
         this.toaster.success('Home location updated successfully!', 'Updated');
       } else {
@@ -182,9 +180,15 @@ export class AddHomeLocation {
         const newLocation: HousingLocationInfo = {
           id: allHousingLocations.length,
           ...formValue,
+          dateAdded: new Date().toLocaleDateString('en-GB'),
         } as HousingLocationInfo;
 
+
+        console.log('✅ New Home Location added:', newLocation);
+
         this.housingService.addHousingLocation(newLocation);
+
+        console.log('📦 All housing locations after add:', this.housingService.getAllHousingLocations());
         this.toaster.success('Home location added successfully!', 'Success');
       }
 

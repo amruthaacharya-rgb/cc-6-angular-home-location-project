@@ -1,6 +1,7 @@
+@if (router.url !== '/login') {
 <nav class="navbar">
   <div class="navbar-left">
-    <a [routerLink]="['/']" class="brand">
+    <a [routerLink]="['/home']" class="brand">
       <img src="logo.svg" alt="Logo" class="brand-logo" />
     </a>
   </div>
@@ -15,6 +16,7 @@
       class="selectAll"
       (click)="toggleSelectAll()"
       [disabled]="!housingService.housingLocations().length"
+      title="Select/Deselect Cards"
     >
       <i
         class="fa"
@@ -24,41 +26,50 @@
             : 'fa-check-square'
         "
       ></i>
-      {{
+      <span>{{
         selectedLocations().length === housingService.housingLocations().length
           ? 'Deselect All'
           : 'Select All'
-      }}
+      }}</span>
     </button>
 
     <button
       class="premium"
       (click)="applyPremiumToggle()"
       [disabled]="selectedLocations().length === 0"
+      title="Toggle Cards"
     >
-      <i class="fa fa-star"></i> Toggle
+      <i class="fa fa-star"></i> <span>Toggle</span>
     </button>
 
-    <button class="shuffle" (click)="shuffleLocations()">
-      <i class="fa fa-random"></i> Shuffle
+    <button class="shuffle" (click)="shuffleLocations()" title="Shuffle Cards">
+      <i class="fa fa-random"></i> <span>Shuffle</span>
     </button>
 
     <button
       class="delete"
       (click)="deleteLocations()"
       [disabled]="selectedLocations().length === 0"
+      title="Delete Cards"
     >
-      <i class="fa fa-trash"></i> Delete
+      <i class="fa fa-trash"></i> <span>Delete</span>
     </button>
 
-    <button routerLink="/home/add" class="add-btn"><i class="fa fa-plus"></i> Add</button>
+    <button routerLink="/home/add" class="add-btn" title="Add Home Location"><i class="fa fa-plus"></i> <span>Add</span></button>
+    <button routerLink="/login" class="btn-logout">
+      <i class="fa fa-arrow-right-from-bracket" title="Logout"></i> <span>Logout</span>
+    </button>
   </div>
 </nav>
-
+}
 <main>
   <section class="content">
     <router-outlet />
+    <router-outlet name="details"/>
+
   </section>
 
-  <footer>@2025</footer>
+  @if (router.url !== '/login') {
+  <footer>@2025 by Amrutha Acharya</footer>
+  }
 </main>

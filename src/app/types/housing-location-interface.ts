@@ -8,4 +8,5 @@ export interface HousingLocationInfo {
   wifi: boolean;
   laundry: boolean;
   isPremium : boolean;
+  dateAdded: string;
 }

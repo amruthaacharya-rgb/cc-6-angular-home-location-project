@@ -1,5 +1,6 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HousingLocationInfo } from '../types/housing-location-interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class HousingService {
       availableUnits: 4,
       wifi: true,
       laundry: true,
-      isPremium: false
+      isPremium: false,
+      dateAdded: '01/01/2025', 
     },
     {
       id: 1,
@@ -29,7 +31,8 @@ export class HousingService {
       availableUnits: 0,
       wifi: false,
       laundry: true,
-      isPremium: false
+      isPremium: false,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 2,
@@ -40,7 +43,8 @@ export class HousingService {
       availableUnits: 1,
       wifi: false,
       laundry: false,
-      isPremium: false
+      isPremium: false,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 3,
@@ -51,7 +55,8 @@ export class HousingService {
       availableUnits: 1,
       wifi: true,
       laundry: false,
-      isPremium: true
+      isPremium: true,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 4,
@@ -62,7 +67,8 @@ export class HousingService {
       availableUnits: 1,
       wifi: true,
       laundry: false,
-      isPremium: false
+      isPremium: false,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 5,
@@ -73,7 +79,8 @@ export class HousingService {
       availableUnits: 2,
       wifi: true,
       laundry: true,
-      isPremium: false
+      isPremium: false,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 6,
@@ -84,7 +91,8 @@ export class HousingService {
       availableUnits: 5,
       wifi: true,
       laundry: true,
-      isPremium: true
+      isPremium: true,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 7,
@@ -95,7 +103,8 @@ export class HousingService {
       availableUnits: 2,
       wifi: true,
       laundry: true,
-      isPremium: false
+      isPremium: false,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 8,
@@ -106,7 +115,8 @@ export class HousingService {
       availableUnits: 10,
       wifi: false,
       laundry: false,
-      isPremium: false
+      isPremium: false,
+       dateAdded: '01/01/2025', 
     },
     {
       id: 9,
@@ -117,7 +127,8 @@ export class HousingService {
       availableUnits: 6,
       wifi: true,
       laundry: true,
-      isPremium: true
+      isPremium: true,
+       dateAdded: '01/01/2025', 
     },
   ]);
 
@@ -147,6 +158,25 @@ export class HousingService {
   deselectAll() {
     this._selectedLocations.set([]);
   }
+
+  setHousingLocations$(query: string): Observable<HousingLocationInfo[]> {
+    return new Observable(subscriber => {
+      const delayMs = (Math.random() * 1.5 + 1.5) * 1000;
+
+      const timer = setTimeout(() => {
+        const all = this._housingLocations();
+        const filtered = all.filter(loc =>
+          loc.city.toLowerCase().includes(query.toLowerCase())
+        );
+
+        subscriber.next(filtered);
+        subscriber.complete();
+      }, delayMs);
+
+      return () => clearTimeout(timer);
+    });
+  }
+
 
   toggleSelectAll() {
     const allIds = this._housingLocations().map(loc => loc.id);
@@ -211,6 +241,7 @@ export class HousingService {
   addHousingLocation(newLocation: HousingLocationInfo) {
     const updated = [...this._housingLocations(), newLocation]
     this._housingLocations.set(updated);
+    console.log("From service",this._housingLocations())
   }
 
   updateHousingLocation(updatedLocation: HousingLocationInfo) {
@@ -220,6 +251,5 @@ export class HousingService {
       allLocations[index] = updatedLocation;
       this._housingLocations.set([...allLocations]);
     }
-
   }
 }

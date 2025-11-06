@@ -10,17 +10,30 @@
   <p class="premium-badge">💎 Premium</p>
   }
 
-  <h2 class="listing-heading">{{ locationInfo().name }}</h2>
-  <p class="listing-location">{{ locationInfo().city }}, {{ locationInfo().state }}</p>
+  <div class="listing-content">
+    <h2 class="listing-heading">{{ locationInfo().name }}</h2>
+    <p class="listing-location">{{ locationInfo().city }}, {{ locationInfo().state }}</p>
+     <p class="listing-date">
+      Added on: {{ locationInfo().dateAdded | date:'dd/MM/yyyy' }}
+    </p>
+    <hr />
 
-  <label (click)="$event.stopPropagation()">
-    <input type="checkbox" [checked]="isChecked" (change)="onToggleSelectionChange()" />
-    Select
-  </label>
+    <div class="listing-actions" (click)="$event.stopPropagation()">
+      <label>
+        <input type="checkbox" [checked]="isChecked" (change)="onToggleSelectionChange()" />
+        Select
+      </label>
 
-  <button [routerLink]="['/home/edit', locationInfo().id]" (click)="$event.stopPropagation()">
-    Edit
-  </button>
+      <button
+        [routerLink]="['/home/edit', locationInfo().id]"
+        (click)="$event.stopPropagation()"
+        class="edit-btn"
+      >
+       <i class="fa-regular fa-pen-to-square"></i>
+        Edit
+      </button>
+    </div>
+  </div>
 
   <!-- <a [routerLink]="['/locations', getHousingLocation?.id]">Learn More</a> -->
 </section>

@@ -1,27 +1,46 @@
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
+
+interface User {
+  username: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
   private _isLoggedIn = signal(false);
-  readonly isLoggedIn = this._isLoggedIn.asReadonly;
+  readonly isLoggedIn = this._isLoggedIn.asReadonly();
 
-  constructor(private router : Router){}
+  private users: User[] = [
+    { username: 'a@g.com', password: 'a@123' }
+  ];
+  
+  constructor(private router: Router) {}
 
-  login(username : string, password: string): boolean {
-    if (username === "admin" && password === "admin@123"){
+  register(username: string, password: string): boolean {
+    const existingUser = this.users.find((u) => u.username === username)
+    if (existingUser) return false;
+    this.users.push({username, password})
+    return true;
+  }
+
+  login(username: string, password: string): boolean {
+    const foundUser = this.users.find(u => u.username === username && u.password === password)
+    if (foundUser) {
       this._isLoggedIn.set(true);
-      this.router.navigate(['/home'])
+      this.router.navigate(['/home']);
       return true;
     }
     return false;
   }
 
-  logout(){
+  logout() {
     this._isLoggedIn.set(false);
-      this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
-  
 }
